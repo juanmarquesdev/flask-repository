@@ -1,4 +1,5 @@
 import dash
+from dash import html
 import dash_core_components as dcc
 import dash_html_components as html
 from flask_login.utils import login_required
@@ -18,6 +19,7 @@ df = pd.DataFrame(
 
 def create_dash_application(flask_app):
     dash_app = dash.Dash(server=flask_app, name="Dashboard", url_base_pathname="/dash/")
+    dash_app.index_string = open('./dash_application/index.html').read()
     dash_app.layout = html.Div(
         children=[
             html.H1(children="Hello Dash"),
