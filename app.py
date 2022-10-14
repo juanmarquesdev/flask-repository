@@ -10,6 +10,8 @@ from flask_login import LoginManager, login_user, logout_user
 from flask_login.mixins import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask.helpers import url_for
+from dash_application import create_dash_application
+
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "THIS IS A SECRECT KEY"
@@ -20,7 +22,7 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login = LoginManager(app)
 login.init_app(app)
-
+create_dash_application(app)
 
 @login.user_loader
 def user_loader(user_id):
@@ -88,7 +90,6 @@ def register():
 def logout():
     logout_user()
     return redirect(url_for("index"))
-
 
 
 if __name__ == "__main__":
